@@ -4,22 +4,24 @@
 
 #include "ploting.h"
 
-
-int getname(char *name, char *num, int cuantos){
+int getname(char *name, char *num, int cuantos) {
     time_t s, val = 1;
-    struct tm* current;
+    struct tm *current;
     s = time(NULL);
     current = localtime(&s);
     int hour = current->tm_hour;
     int min = current->tm_min;
 
-    if(cuantos != 0){
+    if (cuantos != 0) {
         char mydir[90];
-        sprintf(mydir, "%s_%d-%d-%d-V_%d/","/home/fer/Documents/myfiles/plots/",current->tm_year+1900, current->tm_mon + 1, current->tm_mday, cuantos);
+        sprintf(mydir, "%s_%d-%d-%d-V_%d/", "/home/fer/Documents/myfiles/plots/", current->tm_year + 1900,
+                current->tm_mon + 1, current->tm_mday, cuantos);
         mkdir(mydir, 0777);
-        sprintf(name, "%s_%d-%d-%d-N_%s_.png",mydir, current->tm_year+1900, current->tm_mon +1,current->tm_mday, num);
-    }else{
-        sprintf(name, "%s_%d-%d-%d-N_%s_.png","/home/fer/Documents/myfiles/plots/", current->tm_year+1900,current->tm_mon +1, current->tm_mday, num);
+        sprintf(name, "%s_%d-%d-%d-N_%s_.png", mydir, current->tm_year + 1900, current->tm_mon + 1, current->tm_mday,
+                num);
+    } else {
+        sprintf(name, "%s_%d-%d-%d-N_%s_.png", "/home/fer/Documents/myfiles/plots/", current->tm_year + 1900,
+                current->tm_mon + 1, current->tm_mday, num);
     }
 }
 

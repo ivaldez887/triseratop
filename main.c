@@ -6,10 +6,10 @@
 
 #define N 30
 
-static int selecting(){
-    char c ='q';
+static int selecting() {
+    char c = 'q';
     int r = 0;
-    while(1){
+    while (1) {
         clrscr();
         printf("\n\n menu:\n");
         printf(" a.- Un numero de 3 digitos\n ");
@@ -18,14 +18,14 @@ static int selecting(){
         printf("     enter 'b':\n");
         printf(" q.- enter q for exit\n");
 
-        c =tolower(fgetc(stdin));
-        if(c == 'a'){
+        c = tolower(fgetc(stdin));
+        if (c == 'a') {
             return 0;
-        }else if(c == 'b'){
+        } else if (c == 'b') {
             return 1;
-        }else if(c == 'q'){
+        } else if (c == 'q') {
             return 3;
-        }else{
+        } else {
             clrscr();
             printf("\n\n\nPlease enter 'a', 'b', or 'q'\n");
         }
@@ -35,70 +35,79 @@ static int selecting(){
 
 int main(int argc, char *argv[]) {
     char lisaux[1000][4];
-    for (int i=0; i<999; i++){
+    for (int i = 0; i < 999; i++) {
         strncpy(lisaux[i], "", 3);
     }
-    int veces =0;
+    int veces = 0;
     char mynumero[4];
-    mynumero[3] ='\0';
+    mynumero[3] = '\0';
 
-    char *inititems = malloc(sizeof(char)* 150000);
+    char *inititems = malloc(sizeof(char) * 150000);
     getfile(inititems);
     inititems = strstr(inititems, "<tbody>");
     int nitems = cuantoson(inititems);
-    LOSITEMS *lositemes =malloc(sizeof(DIARIO) * nitems+ sizeof(int)*4);
+    LOSITEMS *lositemes = malloc(sizeof(DIARIO) * nitems + sizeof(int) * 4);
     lositemes->nitems = nitems;
     getlistitems(lositemes, inititems);
 
-    int r= selecting();
-    do{
+    int r = selecting();
+    do {
         int nveces;
         char myneum[4];
         clrscr();
-        if (r == 0){
+        if (r == 0) {
             printf("\n\n your especifico number 3 digitos\n");
             scanf("%s", myneum);
 
             sortelnum(myneum);
             LISMYNU *lismynu;
-            lismynu = (LISMYNU*)malloc(sizeof(MYNUM) *30 +sizeof (int));
-            VECTS *vects = (VECTS *)malloc(sizeof(double)* 24+ sizeof(int)+ sizeof(char)*5);
-            for(int k = 0; k<12; k++){
-                vects->mes[k] = k+1;
-                vects->frec[k]= 0;
+            lismynu = (LISMYNU *) malloc(sizeof(MYNUM) * 30 + sizeof(int));
+            VECTS *vects = (VECTS *) malloc(sizeof(double) * 24 + sizeof(int) + sizeof(char) * 5);
+            for (int k = 0; k < 12; k++) {
+                vects->mes[k] = k + 1;
+                vects->frec[k] = 0;
             }
             strcpy(vects->num, myneum);
             mynumero[3] = '\0';
             getlismynu(lositemes, lismynu, myneum);
 
+
             getmyvectors(lismynu, vects);
 
             ploting(lismynu, vects, myneum, 0);
+
+            char nameview[100];
+            getname(nameview, myneum, 0);
+            char mycomand[50];
+            strcpy(mycomand, "eog -f ");
+            strcat(mycomand, nameview);
+            system(mycomand);
+
             free(lismynu);
             free(vects);
 
-        }else if(r==1){
+        } else if (r == 1) {
             printf("\n\nplease enter n: donde n = cuantas veces a\n");
             printf(" resultado con n veces en año\n");
             scanf("%i", &nveces);
 
-            for (int i = 0; i < 1000; i++){
-                if (i< 10){
+            for (int i = 0; i < 1000; i++) {
+                if (i < 10) {
                     mynumero[0] = '0';
                     mynumero[1] = '0';
                     sprintf(&mynumero[2], "%d", i);
-                }else if (i < 100){
-                    mynumero[0] ='0';
+                } else if (i < 100) {
+                    mynumero[0] = '0';
                     sprintf(&mynumero[1], "%d", i);
-                }else{
+                } else {
                     sprintf(mynumero, "%d", i);
                 }
                 sortelnum(mynumero);
                 LISMYNU *lismynu;
                 lismynu = (LISMYNU *) malloc(sizeof(MYNUM) * 30 + sizeof(int));
 
-                VECTS *vects = (VECTS*) malloc(sizeof(double) * 24 + sizeof(int) + sizeof (char) * 5);
-                for (int k = 0; k<12;k++){
+                VECTS *vects = (VECTS *) malloc(sizeof(double) * 24 + sizeof(int) + sizeof(char) * 5);
+                for (int k = 0; k < 12; k++) {
                     vects->mes[k] = k + 1;
                     vects->frec[k] = 0;
                 }
@@ -110,16 +119,16 @@ int main(int argc, char *argv[]) {
 
                 getmyvectors(lismynu, vects);
 
-                int flag =0;
-                if(lismynu->count ==nveces){
-                    for(int k =0; k<999; k++){
-                        if(!strcmp(mynumero, lisaux[k])){
+                int flag = 0;
+                if (lismynu->count == nveces) {
+                    for (int k = 0; k < 999; k++) {
+                        if (!strcmp(mynumero, lisaux[k])) {
                             free(lismynu);
                             flag = 1;
                             break;
                         }
                     }
-                    if(flag == 0){
+                    if (flag == 0) {
                         strcpy(lisaux[i], mynumero);
                         veces += 1;
 
@@ -127,16 +136,17 @@ int main(int argc, char *argv[]) {
 
                         free(lismynu);
                     }
-                }else{
+                } else {
                     free(lismynu);
                 }
                 free(vects);
             }
-        }else if(r==3){
+        } else if (r == 3) {
             free(lositemes);
             exit(0);
         }
-    }while((r = selecting()) != 3);
+    } while ((r = selecting()) != 3);
+
 
     printf("\n ___listo___\n");
 

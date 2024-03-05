@@ -4,7 +4,7 @@
 
 #include "bajan.h"
 
-#define FROM_FILE
+/*#define FROM_FILE*/
 int getfile(char *inititems){
 #ifdef FROM_FILE
     const char *fil= "../historia.html";

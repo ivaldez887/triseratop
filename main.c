@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     char mynumero[4];
     mynumero[3] = '\0';
 
-    char *inititems = malloc(sizeof(char) * 150000);
+    char *inititems = malloc(sizeof(char) * 300000);
     getfile(inititems);
     inititems = strstr(inititems, "<tbody>");
     int nitems = cuantoson(inititems);
@@ -51,8 +51,9 @@ int main(int argc, char *argv[]) {
     getlistitems(lositemes, inititems);
 
     int r = selecting();
-    int flagi=0;
     do {
+        int flag1=0;
+        static int flag0=0;
         int nveces;
         char myneum[4];
         clrscr();
@@ -75,14 +76,16 @@ int main(int argc, char *argv[]) {
             getmyvectors(lismynu, vects);
 
             ploting(lismynu, vects, myneum, 0);
-
-            char nameview0[100];
-            getname(nameview0, myneum, 0);
-            char mycomand0[50];
-            strcpy(mycomand0, "eog -f ");
-            strcat(mycomand0, nameview0);
-            system(mycomand0);
-
+            if(flag0==0) {
+                char nameview0[100];
+                getname(nameview0, myneum, 0);
+                char mycomand0[50];
+                strcpy(mycomand0, "nohup eog -f ");
+                strcat(mycomand0, nameview0);
+                strcat(mycomand0, " &");
+                system(mycomand0);
+                flag0=1;
+            }
             free(lismynu);
             free(vects);
 
@@ -133,14 +136,15 @@ int main(int argc, char *argv[]) {
                         veces += 1;
 
                         ploting(lismynu, vects, mynumero, 1);
-                        if(flagi==0){
+                        if(flag1==0){
                             char nameview1[100];
                             getname(nameview1, mynumero, lismynu->count);
                             char mycomand1[50];
-                            strcpy(mycomand1, "eog -f ");
+                            strcpy(mycomand1, "nohup eog -f ");
                             strcat(mycomand1, nameview1);
+                            strcat(mycomand1, " &");
                             system(mycomand1);
-                            flagi=1;
+                            flag1=1;
                         }
 
                         free(lismynu);

@@ -11,7 +11,7 @@
 #include <time.h>
 #include <ctype.h>
 
-#define FROM_FILE
+
 
 typedef struct DIARIO{
     char fecha[11];

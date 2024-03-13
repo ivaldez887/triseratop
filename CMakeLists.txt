@@ -14,4 +14,4 @@ add_executable(triseratop main.c
 
 target_link_libraries(triseratop curl plplot m)
 
-install(TARGETS triseratop DESTINATION /home/fer/.local/bin)
+install(TARGETS triseratop CONFIGURATIONS Release DESTINATION /home/fer/.local/bin)

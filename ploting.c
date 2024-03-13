@@ -13,15 +13,33 @@ int getname(char *name, char *num, int cuantos) {
     int min = current->tm_min;
 
     if (cuantos != 0) {
-        char mydir[90];
+        char mydir[100];
+
+#ifndef _UWIN
+        sprintf(mydir, "%s_%d-%d-%d-V_%d/", "c:/Users/ibane/Documents/myfiles/plots/", current->tm_year + 1900,
+                current->tm_mon + 1, current->tm_mday, cuantos);
+#endif
+#ifdef __linux__
         sprintf(mydir, "%s_%d-%d-%d-V_%d/", "/home/fer/Documents/myfiles/plots/", current->tm_year + 1900,
                 current->tm_mon + 1, current->tm_mday, cuantos);
+#endif
+#ifndef _UWIN  /* use in windows */
+        mkdir(mydir);
+#endif /* _UWIN or _MINGW64 */
+#ifdef __linux__
         mkdir(mydir, 0777);
+#endif
         sprintf(name, "%s_%d-%d-%d-N_%s_.png", mydir, current->tm_year + 1900, current->tm_mon + 1, current->tm_mday,
                 num);
     } else {
+#ifndef _UWIN
+        sprintf(name, "%s_%d-%d-%d-N_%s_.png", "c:/Users/ibane/Documents/myfiles/plots/", current->tm_year + 1900,
+                current->tm_mon + 1, current->tm_mday, num);
+#endif
+#ifdef __linux__
         sprintf(name, "%s_%d-%d-%d-N_%s_.png", "/home/fer/Documents/myfiles/plots/", current->tm_year + 1900,
                 current->tm_mon + 1, current->tm_mday, num);
+#endif
     }
 }
 

@@ -22,39 +22,39 @@ int getfile(char *inititems) {
     fread(data, sizeof(char), count, fe);
     fclose(fe);
     memcpy(inititems, data, 179000);
-#else
+#else  /*#ifdef FROM_FILE*/
     struct MemoryStruct chunk;
     chunk.memory = malloc(1);
     chunk.size = 0;
 #ifdef __linux__
-    char* myconfig="/home/fer/.config/.triseratopl";
-#elifndef _UWIN
+    char *myconfig = "/home/fer/.config/.triseratopl";
+#elifdef _WIN64
     char* myconfig="c:/Users/ibane/.myconfig/.triseratopl.txt";
 #endif
 
     char bufi[250];
-    FILE *fi= fopen(myconfig, "r");
-    if(fi== NULL){
-        fprintf(stderr,"No file named .triseratopl.txt\n");
+    FILE *fi = fopen(myconfig, "r");
+    if (fi == NULL) {
+        fprintf(stderr, "No file named .triseratopl.txt\n");
         exit(0);
     }
-    fgets(bufi,249,fi);
+    fgets(bufi, 249, fi);
     fclose(fi);
     printf("%s", bufi);
 #ifdef __linux__
-    char *bufinew = malloc( strlen( bufi ? bufi : "\n" ) );
-    if( bufi )
-        strcpy( bufinew, bufi );
-    bufinew[strlen(bufinew)-1]='\0';
-    free(bufinew);
+    char *bufinew = malloc(strlen(bufi ? bufi : "\n"));
+    if (bufi)
+        strcpy(bufinew, bufi);
+    bufinew[strlen(bufinew) - 1] = '\0';
     bajarch(&chunk, bufinew);
-#elifndef _UWIN
+    free(bufinew);
+#elifdef _WIN64
     bajarch(&chunk, bufi);
 #endif
     memcpy(inititems, chunk.memory, chunk.size);
 
     free(chunk.memory);
-#endif
+#endif  /*#ifdef FROM_FILE*/
 }
 
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp) {

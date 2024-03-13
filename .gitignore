@@ -1,4 +1,5 @@
 /cmake-build-debug/*
+/cmake-build-release/*
 historic2024.html
 .idea
 mylink.txt

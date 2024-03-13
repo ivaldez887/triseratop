@@ -10,14 +10,13 @@
 #include <string.h>
 #include <curl/curl.h>
 
-struct MemoryStruct
-{
-    char* memory;
+struct MemoryStruct {
+    char *memory;
     size_t size;
 };
 
-int getfile(char* inititems);
+int getfile(char *inititems);
 
-int bajarch(struct MemoryStruct *chunk, char* bufi);
+int bajarch(struct MemoryStruct *chunk, char *bufi);
 
 #endif //TRISERATOP_BAJAN_H

@@ -52,8 +52,8 @@ int main(int argc, char *argv[]) {
 
     int r = selecting();
     do {
-        int flag1=0;
-        static int flag0=0;
+        int flag1 = 0;
+        static int flag0 = 0;
         int nveces;
         char myneum[4];
         clrscr();
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
             getmyvectors(lismynu, vects);
 
             ploting(lismynu, vects, myneum, 0);
-            if(flag0==0) {
+            if (flag0 == 0) {
                 char nameview0[100];
                 getname(nameview0, myneum, 0);
                 char mycomand0[50];
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
                 strcat(mycomand0, nameview0);
                 strcat(mycomand0, " &");
                 system(mycomand0);
-                flag0=1;
+                flag0 = 1;
             }
             free(lismynu);
             free(vects);
@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
                         veces += 1;
 
                         ploting(lismynu, vects, mynumero, 1);
-                        if(flag1==0){
+                        if (flag1 == 0) {
                             char nameview1[100];
                             getname(nameview1, mynumero, lismynu->count);
                             char mycomand1[50];
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
                             strcat(mycomand1, nameview1);
                             strcat(mycomand1, " &");
                             system(mycomand1);
-                            flag1=1;
+                            flag1 = 1;
                         }
 
                         free(lismynu);
